@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost;DatabaseName=VideoDb
+    username: SA
+    password: LYJsql2020
+
+  jpa:
+    database: sql_server
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.SQLServerDialect
+
