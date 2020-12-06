@@ -12,3 +12,6 @@ spring:
     show-sql: false
     database-platform: org.hibernate.dialect.SQLServerDialect
 
+  redis:
+    host: 127.0.0.1
+    timeout: 1000

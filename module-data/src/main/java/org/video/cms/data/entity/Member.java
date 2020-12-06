@@ -1,12 +1,14 @@
 package org.video.cms.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author bobo
@@ -15,13 +17,31 @@ import java.sql.Date;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class Member {
+public class Member{
     @Id
-    private String userId;
-    private String pwd;
-    private String username;
-    private Date dateRegister;
+    private String memberId;
+    private String memberPwd;
+    private String memberName;
+    private Timestamp dateRegister;
+
+    public Member(String memberId, String memberPwd, String memberName, String dateRegister) {
+        this.memberId = memberId;
+        this.memberPwd = memberPwd;
+        this.memberName = memberName;
+        try {
+            this.dateRegister = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateRegister).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getDateRegister() {
+        //方法一:优势在于可以灵活的设置字符串的形式。
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateRegister);
+    }
+
+    public void setDateRegister(String dateRegister) throws ParseException {
+        this.dateRegister = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateRegister).getTime());
+    }
 }
