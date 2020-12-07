@@ -41,8 +41,8 @@ public class MemberController {
     }
 
     @PostMapping("/update")
-    public ApplicationResponse<Void> update(Member member) {
-        memberService.updateMember(member);
+    public ApplicationResponse<Void> update(String id, Member member) {
+        memberService.updateMember(id, member);
         return ApplicationResponse.succeed("成功");
     }
 }

@@ -9,6 +9,7 @@ import org.video.cms.data.entity.Member;
 import org.video.cms.data.repository.concrete.MemberRepository;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -36,9 +37,11 @@ public class MemberService{
         memberRepository.save(member);
     }
 
-    public void updateMember(Member member){
-        Member oldMember = memberRepository.findByMemberId(member.getMemberId());
+    public void updateMember(String id, Member member){
+        Member oldMember = memberRepository.findByMemberId(id);
         AssertUtils.notNull(oldMember, ApplicationException.withResponse(SystemCodeEnum.ARGUMENT_WRONG, "该手机号注册的会员不存在！"));
+        AssertUtils.isNull(memberRepository.findByMemberId(member.getMemberId()), ApplicationException.withResponse(SystemCodeEnum.ARGUMENT_WRONG, "该手机号已注册！"));
+        memberRepository.delete(oldMember);
         memberRepository.save(member);
     }
 }

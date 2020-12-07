@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 
 @Data
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
 public class Member{
     @Id
@@ -39,9 +41,5 @@ public class Member{
     public String getDateRegister() {
         //方法一:优势在于可以灵活的设置字符串的形式。
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateRegister);
-    }
-
-    public void setDateRegister(String dateRegister) throws ParseException {
-        this.dateRegister = new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateRegister).getTime());
     }
 }
