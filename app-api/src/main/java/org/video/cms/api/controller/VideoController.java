@@ -4,45 +4,43 @@ import org.springframework.web.bind.annotation.*;
 import org.video.cms.api.module.vo.MemberVO;
 import org.video.cms.common.response.ApplicationResponse;
 import org.video.cms.data.entity.Member;
-import org.video.cms.data.service.MemberService;
+import org.video.cms.data.entity.Video;
+import org.video.cms.data.service.VideoService;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author bobo
- * @date 2020/12/3
+ * @date 2020/12/8
  */
-
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/member")
-public class MemberController {
+@RequestMapping("/video")
+public class VideoController {
     @Resource
-    private MemberService memberService;
+    private VideoService videoService;
 
     @GetMapping("/findAll")
-    public ApplicationResponse<List<MemberVO>> getAll() {
-        List<MemberVO> memberVOList = memberService.getMembers().stream().map(MemberVO::fromMember).collect(Collectors.toList());
-        return ApplicationResponse.succeed("成功", memberVOList);
+    public ApplicationResponse<List<Video>> getAll() {
+        return ApplicationResponse.succeed("成功", videoService.getVideos());
     }
 
     @PostMapping("/delete")
     public ApplicationResponse<Void> delete(String id) {
-        memberService.deleteMember(id);
+        videoService.deleteVideo(id);
         return ApplicationResponse.succeed("成功");
     }
 
     @PostMapping("/add")
-    public ApplicationResponse<Void> add(Member member) {
-        memberService.addMember(member);
+    public ApplicationResponse<Void> add(Video video) {
+        videoService.addVideo(video);
         return ApplicationResponse.succeed("成功");
     }
 
     @PostMapping("/update")
-    public ApplicationResponse<Void> update(String id, Member member) {
-        memberService.updateMember(id, member);
+    public ApplicationResponse<Void> update(Video video) {
+        videoService.updateVideo(video);
         return ApplicationResponse.succeed("成功");
     }
 }

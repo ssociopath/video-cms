@@ -18,15 +18,15 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberVO {
-    private String name;
-    private String phone;
+    private String memberName;
+    private String memberId;
     private String dateRegister;
 
-    public static MemberVO fromBanner(Member member) {
+    public static MemberVO fromMember(Member member) {
 
         return MemberVO.builder()
-                .name(member.getMemberName())
-                .phone(member.getMemberId())
+                .memberName(member.getMemberName())
+                .memberId(member.getMemberId())
                 .dateRegister(member.getDateRegister())
                 .build();
     }
