@@ -48,4 +48,13 @@ public class CopyController {
         return ApplicationResponse.succeed("成功");
     }
 
+    @PostMapping("/ids")
+    public ApplicationResponse<List<String>> getCopyId(String id) {
+        return ApplicationResponse.succeed("成功",
+                copyService.getCopies().stream()
+                        .filter(x->x.getCopyPk().getVideoId().equals(id))
+                        .map(x->String.valueOf(x.getCopyPk().getCopyId()))
+                        .collect(Collectors.toList()));
+    }
+
 }

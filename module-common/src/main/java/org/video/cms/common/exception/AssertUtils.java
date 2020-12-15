@@ -38,6 +38,12 @@ public class AssertUtils {
         }
     }
 
+    public static void isFalse(boolean expression, String argumentWrongMessage) {
+        if (expression) {
+            throw ApplicationException.withResponse(SystemCodeEnum.ARGUMENT_WRONG, argumentWrongMessage);
+        }
+    }
+
     public static void isNull(Object object, ApplicationException exception) {
         if (object != null) {
             throw exception;

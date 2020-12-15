@@ -1,14 +1,13 @@
 package org.video.cms.api.controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.video.cms.api.module.vo.MemberVO;
 import org.video.cms.common.response.ApplicationResponse;
-import org.video.cms.data.entity.Member;
 import org.video.cms.data.entity.Video;
 import org.video.cms.data.service.VideoService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bobo
@@ -42,5 +41,10 @@ public class VideoController {
     public ApplicationResponse<Void> update(Video video) {
         videoService.updateVideo(video);
         return ApplicationResponse.succeed("成功");
+    }
+
+    @GetMapping("/ids")
+    public ApplicationResponse<List<String>> getVideoId() {
+        return ApplicationResponse.succeed("成功", videoService.getVideos().stream().map(Video::getVideoId).collect(Collectors.toList()));
     }
 }

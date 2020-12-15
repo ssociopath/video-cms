@@ -45,4 +45,9 @@ public class MemberController {
         memberService.updateMember(id, member);
         return ApplicationResponse.succeed("成功");
     }
+
+    @GetMapping("/ids")
+    public ApplicationResponse<List<String>> getMemberId() {
+        return ApplicationResponse.succeed("成功",memberService.getMembers().stream().map(Member::getMemberId).collect(Collectors.toList()));
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.video.cms.api.controller.RentRecordController;
 import org.video.cms.api.controller.VideoController;
 
 /**
@@ -29,7 +30,7 @@ public class ControllerTest {
     @Autowired
     protected WebApplicationContext wac;
     @Autowired
-    VideoController videoController;
+    RentRecordController rentRecordController;
 
     @Before
     public void setupMockMvc(){
@@ -49,9 +50,8 @@ public class ControllerTest {
     }
 
     @Test
-    public void deleteCopy() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.post("/copy/delete")
-                .param("videoId","")
+    public void getRents() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/rentRecord/findAll")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .session(session)
         )

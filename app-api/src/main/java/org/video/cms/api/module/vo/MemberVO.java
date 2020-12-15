@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.video.cms.data.entity.Member;
 
-import java.sql.Timestamp;
 
 /**
  * @author bobo
