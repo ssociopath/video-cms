@@ -1,6 +1,7 @@
 package org.video.cms.data.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.video.cms.common.exception.ApplicationException;
 import org.video.cms.common.exception.AssertUtils;
@@ -9,7 +10,9 @@ import org.video.cms.data.entity.Member;
 import org.video.cms.data.repository.concrete.MemberRepository;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author bobo
@@ -20,6 +23,15 @@ import java.util.List;
 public class MemberService{
     @Resource
     private MemberRepository memberRepository;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+
+
+    public Member getMemberByIdAndPwd(String memberId,String memberPwd){
+        Member member = memberRepository.findMemberByMemberIdAndMemberPwd(memberId,memberPwd);
+        AssertUtils.isTrue(member!=null, ApplicationException.withResponse(SystemCodeEnum.NEED_LOGIN, "用户名或密码错误"));
+        return member;
+    }
 
     public List<Member> getMembers(){
         return memberRepository.findAll();

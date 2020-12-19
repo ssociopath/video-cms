@@ -13,4 +13,5 @@ import java.util.Optional;
 
 public interface MemberRepository extends DataRepository<Member,String> {
     Member findByMemberId(String id);
+    Member findMemberByMemberIdAndMemberPwd(String memberId, String memberPwd);
 }

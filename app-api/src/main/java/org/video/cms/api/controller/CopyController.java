@@ -52,7 +52,7 @@ public class CopyController {
     public ApplicationResponse<List<String>> getCopyId(String id) {
         return ApplicationResponse.succeed("成功",
                 copyService.getCopies().stream()
-                        .filter(x->x.getCopyPk().getVideoId().equals(id))
+                        .filter(x->x.getCopyPk().getVideoId().equals(id)&&x.getStatus()=='1')
                         .map(x->String.valueOf(x.getCopyPk().getCopyId()))
                         .collect(Collectors.toList()));
     }
