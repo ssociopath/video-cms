@@ -23,6 +23,11 @@ public class VideoService {
     public List<Video> getVideos(){
         return videoRepository.findAll();
     }
+    public Video getVideoById(String id){
+        Video video = videoRepository.findVideoByVideoId(id);
+        AssertUtils.notNull(video, "录像不存在");
+        return video;
+    }
 
     public void deleteVideo(String id){
         AssertUtils.notNull(id, "id不能为空");

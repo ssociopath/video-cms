@@ -1,9 +1,6 @@
 package org.video.cms.data.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +11,12 @@ import java.sql.Date;
  * @date 2020/12/15
  */
 @Data
+@Builder
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class BillRecord {
     @Id
     private int rentId;
@@ -26,4 +25,11 @@ public class BillRecord {
     private int amtPaid;
     private Date datePay;
     private Date datePaid;
+
+    public BillRecord(int rentId, String memberId, int amtPay, Date datePay) {
+        this.rentId = rentId;
+        this.memberId = memberId;
+        this.amtPay = amtPay;
+        this.datePay = datePay;
+    }
 }

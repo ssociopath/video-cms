@@ -58,4 +58,16 @@ public class ControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    public void addReturn() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.post("/rent/return")
+                .param("id","10")
+                .param("date","2020-12-09")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }

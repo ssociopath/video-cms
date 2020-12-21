@@ -25,6 +25,11 @@ public class VideoController {
         return ApplicationResponse.succeed("成功", videoService.getVideos());
     }
 
+    @PostMapping("/findById")
+    public ApplicationResponse<Video> getById(String id) {
+        return ApplicationResponse.succeed("成功", videoService.getVideoById(id));
+    }
+
     @PostMapping("/delete")
     public ApplicationResponse<Void> delete(String id) {
         videoService.deleteVideo(id);

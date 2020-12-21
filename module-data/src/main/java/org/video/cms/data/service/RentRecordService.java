@@ -5,12 +5,26 @@ import org.springframework.stereotype.Service;
 import org.video.cms.common.exception.ApplicationException;
 import org.video.cms.common.exception.AssertUtils;
 import org.video.cms.common.response.SystemCodeEnum;
+import org.video.cms.common.utils.DateUtil;
+import org.video.cms.data.entity.BillRecord;
 import org.video.cms.data.entity.Copy;
 import org.video.cms.data.entity.RentRecord;
+import org.video.cms.data.entity.Video;
+import org.video.cms.data.repository.concrete.BillRecordRepository;
 import org.video.cms.data.repository.concrete.CopyRepository;
 import org.video.cms.data.repository.concrete.RentRecordRepository;
+import org.video.cms.data.repository.concrete.VideoRepository;
 
 import javax.annotation.Resource;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -24,9 +38,19 @@ public class RentRecordService {
     private RentRecordRepository rentRecordRepository;
     @Resource
     private CopyRepository copyRepository;
+
     public List<RentRecord> getRentRecords(){
         return rentRecordRepository.findAll();
     }
+
+    public List<RentRecord> getRentRecordsByMemberId(String memberId){
+        return rentRecordRepository.findAllByMemberId(memberId);
+    }
+
+    public RentRecord getRentRecordsByRentId(String id){
+        return rentRecordRepository.findById(Integer.valueOf(id)).orElse(null);
+    }
+
 
     public void addRentRecord(RentRecord rentRecord){
         RentRecord oldRentRecord = rentRecordRepository.findRentRecordByRentId(rentRecord.getRentId());
@@ -49,5 +73,11 @@ public class RentRecordService {
             copyRepository.save(copy);
         }
         rentRecordRepository.delete(rentRecord);
+    }
+
+    public void updateRentRecord(RentRecord rentRecord){
+        RentRecord oldRentRecord = rentRecordRepository.findRentRecordByRentId(rentRecord.getRentId());
+        AssertUtils.notNull(oldRentRecord, "该租借记录对应的租入记录不存在！");
+        rentRecordRepository.save(rentRecord);
     }
 }

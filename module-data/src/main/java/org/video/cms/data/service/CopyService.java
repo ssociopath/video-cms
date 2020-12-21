@@ -46,6 +46,17 @@ public class CopyService {
         videoRepository.save(video);
     }
 
+    public void updateCopyStatus(Copy copy){
+        AssertUtils.notNull(copyRepository.findById(copy.getCopyPk()),  "该拷贝不存在！");
+        Video video = videoRepository.findVideoByVideoId(copy.getCopyPk().getVideoId());
+        if(copy.getStatus()=='1'){
+            video.setStock(video.getStock()+1);
+        }else{
+            video.setStock(video.getStock()-1);
+        }
+        copyRepository.save(copy);
+    }
+
     public void updateCopy(int oldCopyId, Copy copy){
         Copy oldCopy = copyRepository.findCopyByCopyPkVideoIdAndCopyPkCopyId(copy.getCopyPk().getVideoId(),oldCopyId);
         AssertUtils.notNull(oldCopy,  "该拷贝不存在！");
